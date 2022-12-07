@@ -11,7 +11,8 @@
     "cdk": "cdk",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "local": "sam-nightly local start-api --warm-containers lazy -t cdk.out/VideoLinkedStack.template.json"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
@@ -19,6 +20,7 @@
     "@types/prettier": "2.6.0",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
+    "@types/aws-lambda": "^8.10.106",
     "aws-cdk": "2.43.1",
     "eslint": "^8.29.0",
     "jest": "^27.5.1",
@@ -30,6 +32,8 @@
     "aws-cdk-lib": "2.43.1",
     "constructs": "^10.0.0",
     "husky": "^8.0.2",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "envalid": "^7.3.1",
+    "dotenv": "^16.0.3"
   }
 }
