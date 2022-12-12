@@ -1,6 +1,13 @@
 import * as cdk from 'aws-cdk-lib';
 import { BaseResources } from '../resources';
 
-export interface ApplicationProps extends cdk.NestedStackProps {
-    baseResources: BaseResources
+export interface Configuration {
+    stackName: string;
 }
+
+export interface ResourcesProps extends cdk.NestedStackProps {
+    configuration: Configuration;
+    baseResources: BaseResources;
+}
+
+export type ApplicationProps = ResourcesProps;
