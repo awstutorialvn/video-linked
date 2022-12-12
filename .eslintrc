@@ -14,7 +14,8 @@
         "quotes": ["error", "single", { "allowTemplateLiterals": true }],
         "import/no-extraneous-dependencies": "off",
         "no-console": "error",
-        "@typescript-eslint/require-await": "off"
+        "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/no-unused-vars": "warn"
     },
     "settings": {
         "import/parsers": {
