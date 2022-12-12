@@ -9,3 +9,6 @@ cdk.out
 
 # env
 .env
+
+# local aws intergation test
+__aws__test__
