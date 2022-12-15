@@ -9,11 +9,9 @@ export const env = cleanEnv(process.env, {
 		choices: ['local', 'development', 'production', 'staging'],
 		default: 'local',
 	}),
-	CDK_DEFAULT_ACCOUNT: str({}),
-	CDK_DEFAULT_REGION: str({}),
-    STAGE_NAME: str({
+	STAGE_NAME: str({
 		choices: ['dev', 'prd', 'stg'],
 		default: 'dev',
 	}),
+	REGION: str({}),
 });
-console.log(env);
