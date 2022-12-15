@@ -1,11 +1,12 @@
 import * as cdk from 'aws-cdk-lib';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
-import { NestedStack, NestedStackProps } from 'aws-cdk-lib';
+import { NestedStack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-
-import { env } from '../../env';
 import { AuthorizationType, CfnAuthorizer } from 'aws-cdk-lib/aws-apigateway';
+
+import { env } from '../../../env';
 import { CognitoResource } from './cognito';
+import { ApplicationResourcesProps } from '../../interfaces/application';
 
 export class ApiGatewayResource extends NestedStack {
     private cognito: CognitoResource;
@@ -14,9 +15,10 @@ export class ApiGatewayResource extends NestedStack {
 
     public cognitoAuthorizer: { authorizerId: string; authorizationType: AuthorizationType };
 
-    public constructor(scope: Construct, id: string, props?: NestedStackProps) {
+    public constructor(scope: Construct, id: string, props: ApplicationResourcesProps) {
         super(scope, id, props);
-        const stackName = env.isProd ? env.STACK_NAME : `${env.STAGE_NAME}-${env.STACK_NAME}`;
+
+        const stackName = props.configuration.stackName;
         this.api = new apigateway.RestApi(this, `${stackName}-api`, {
             description: 'video linked api gateway',
             deployOptions: {

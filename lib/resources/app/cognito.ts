@@ -1,18 +1,40 @@
 import * as cdk from 'aws-cdk-lib';
-import { NestedStack, NestedStackProps, RemovalPolicy } from 'aws-cdk-lib';
+import * as path from 'path';
+import { NestedStack, RemovalPolicy } from 'aws-cdk-lib';
 import { AccountRecovery, UserPool, UserPoolClient, UserPoolClientIdentityProvider } from 'aws-cdk-lib/aws-cognito';
+import { Runtime } from 'aws-cdk-lib/aws-lambda';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
-import { env } from '../../env';
+
+import { env } from '../../../env';
+import { ApplicationResourcesProps } from '../../interfaces/application';
 
 export class CognitoResource extends NestedStack {
     public userPool: UserPool;
 
     public userPoolClient: UserPoolClient;
 
-    public constructor(scope: Construct, id: string, props?: NestedStackProps) {
+    public constructor(scope: Construct, id: string, props: ApplicationResourcesProps) {
         super(scope, id, props);
-        const stackName = env.isProd ? env.STACK_NAME : `${env.STAGE_NAME}-${env.STACK_NAME}`;
+
+        const stackName = props.configuration.stackName;
+        const dynamoDBTables = props.baseResources.dynamoDB.tables;
+
         // User Pool
+        const postConfirmationFunName = `${stackName}-post-confirmation`;
+        const postConfirmationFunc = new NodejsFunction(this, postConfirmationFunName, {
+            functionName: postConfirmationFunName,
+            runtime: Runtime.NODEJS_16_X,
+            handler: 'handler',
+            entry: path.join(__dirname, `../../../src/auth/postConfirmation.ts`),
+            bundling: {
+                minify: env.isProduction,
+                externalModules: [],
+            },
+            environment: props.configuration.environment,
+        });
+
+        dynamoDBTables.User.grantReadWriteData(postConfirmationFunc);
         const userPoolName = `${stackName}-userPool`;
         this.userPool = new UserPool(this, userPoolName, {
             userPoolName: userPoolName,
@@ -32,6 +54,9 @@ export class CognitoResource extends NestedStack {
                 requireDigits: true,
                 requireUppercase: true,
                 requireSymbols: true,
+            },
+            lambdaTriggers: {
+                postConfirmation: postConfirmationFunc,
             },
         });
 
