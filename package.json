@@ -1,6 +1,7 @@
 {
   "name": "video-linked",
   "version": "0.1.0",
+  "private": true,
   "bin": {
     "video-linked": "bin/video-linked.js"
   },
@@ -16,32 +17,37 @@
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
-    "@types/node": "10.17.27",
+    "@types/node": "18.11.17",
     "@types/prettier": "2.6.0",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
     "@types/aws-lambda": "^8.10.106",
+    "@types/lodash": "^4.14.191",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-import-resolver-typescript": "^3.5.2",
-    "aws-cdk": "^2.54.0",
-    "aws-sdk": "^2.1275.0",
+    "husky": "^8.0.2",
     "aws-amplify": "^5.0.5",
     "prettier": "^2.8.1",
     "eslint": "^8.29.0",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.9.1",
+    "fastest-validator-decorators": "^2.0.0",
     "typescript": "~3.9.7"
   },
   "dependencies": {
+    "aws-cdk": "^2.54.0",
     "aws-cdk-lib": "2.43.1",
     "constructs": "^10.0.0",
-    "husky": "^8.0.2",
     "source-map-support": "^0.5.21",
-    "envalid": "^7.3.1",
-    "dotenv": "^16.0.3"
+    "lodash": "^4.17.21"
+  },
+  "workspaces": {
+    "packages": [
+      "src/dependencies/core/nodejs"
+    ]
   }
 }

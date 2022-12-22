@@ -3,14 +3,18 @@ import { Construct } from 'constructs';
 import { ApplicationResourcesProps, NestedResourcesProps } from '../interfaces/application';
 import { ApiGatewayResource } from './app/apiGateway';
 import { DynamoDBResource } from './base/dynamoDB';
+import { S3Resource } from './base/s3';
 
 export class BaseResources extends NestedStack {
     public dynamoDB: DynamoDBResource;
+
+    public s3: S3Resource;
 
     public constructor(scope: Construct, id: string, props: NestedResourcesProps) {
         super(scope, id, props);
 
         this.dynamoDB = new DynamoDBResource(this, 'DynamoDB', props);
+        this.s3 = new S3Resource(this, 'S3Bucket', props);
     }
 }
 

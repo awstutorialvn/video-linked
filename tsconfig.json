@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "ES2018",
     "module": "commonjs",
     "lib": [
@@ -21,9 +22,13 @@
     "strictPropertyInitialization": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "paths": {
+      "/opt/core/*": ["src/dependencies/core/nodejs/*"]
+    }
   },
   "exclude": [
     "node_modules",
