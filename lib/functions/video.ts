@@ -75,6 +75,7 @@ export class VideoStack extends NestedStack {
                 externalModules: [],
             },
             environment: props.configuration.environment,
+            layers: [props.baseResources.dependency.coreLayer],
         });
 
         props.baseResources.s3.s3Bucket.grantPut(presignedPutUrlFunction);
