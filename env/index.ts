@@ -9,9 +9,7 @@ export const env = cleanEnv(process.env, {
 		choices: ['local', 'development', 'production', 'staging'],
 		default: 'local',
 	}),
-	STAGE_NAME: str({
-		choices: ['dev', 'prd', 'stg'],
-		default: 'dev',
-	}),
 	REGION: str({}),
+	S3_BUCKET_NAME: str({}),
+	S3_MAIN_PREFIX: str({})
 });

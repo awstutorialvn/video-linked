@@ -1,12 +1,12 @@
 import * as cdk from 'aws-cdk-lib';
 import * as path from 'path';
-import { NestedStack, RemovalPolicy } from 'aws-cdk-lib';
+import { NestedStack } from 'aws-cdk-lib';
 import { AccountRecovery, UserPool, UserPoolClient, UserPoolClientIdentityProvider } from 'aws-cdk-lib/aws-cognito';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
 
-import { env } from '../../../env';
+import { env } from '../../../env/cdk';
 import { ApplicationResourcesProps } from '../../interfaces/application';
 
 export class CognitoResource extends NestedStack {
@@ -18,6 +18,7 @@ export class CognitoResource extends NestedStack {
         super(scope, id, props);
 
         const stackName = props.configuration.stackName;
+        const removalPolicy = props.configuration.removalPolicy;
         const dynamoDBTables = props.baseResources.dynamoDB.tables;
 
         // User Pool
@@ -47,7 +48,7 @@ export class CognitoResource extends NestedStack {
             autoVerify: { email: true },
             signInAliases: { email: true },
             accountRecovery: AccountRecovery.EMAIL_ONLY,
-            removalPolicy: env.isProd ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
+            removalPolicy: removalPolicy,
             passwordPolicy: {
                 minLength: 6,
                 requireLowercase: true,
