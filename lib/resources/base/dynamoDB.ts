@@ -4,7 +4,7 @@ import { NestedStack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { NestedResourcesProps } from '../../interfaces/application';
 
-import { env } from '../../../env';
+import { env } from '../../../env/cdk';
 
 export class DynamoDBResource extends NestedStack {
     public tables: {
@@ -26,7 +26,6 @@ export class DynamoDBResource extends NestedStack {
         const tables = {
             User: new dynamodb.Table(this, `${stackName}_User`, {
                 partitionKey: { name: 'email', type: dynamodb.AttributeType.STRING },
-                sortKey: { name: 'createdAt', type: dynamodb.AttributeType.STRING },
                 billingMode,
                 readCapacity,
                 writeCapacity,

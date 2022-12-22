@@ -1,26 +1,26 @@
-import { Context, PostConfirmationConfirmSignUpTriggerEvent } from 'aws-lambda';
-import { DynamoDB } from '../aws';
-import { stackName } from '../configuration';
-
-const docClient = new DynamoDB.DocumentClient();
+import { PostConfirmationConfirmSignUpTriggerEvent } from 'aws-lambda';
+import { dynamoDocClient } from '/opt/core/aws';
+import { stackName } from '/opt/core/configuration';
 
 export const handler = async (
     event: PostConfirmationConfirmSignUpTriggerEvent,
-    context: Context,
 ): Promise<PostConfirmationConfirmSignUpTriggerEvent> => {
     if (event.triggerSource === 'PostConfirmation_ConfirmSignUp') {
         const { userAttributes } = event.request;
+        const { email, sub } = userAttributes;
         const createdDate = new Date();
+
         const params = {
             TableName: `${stackName}_User`,
             Item: {
-                email: userAttributes.email,
+                sub: sub,
+                email: email,
                 createdAt: createdDate.toISOString(),
                 updatedAt: createdDate.toISOString(),
             },
         };
 
-        await docClient.put(params).promise();
+        await dynamoDocClient.put(params).promise();
     }
 
     return event;

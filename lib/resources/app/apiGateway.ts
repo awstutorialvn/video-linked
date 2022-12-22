@@ -4,7 +4,7 @@ import { NestedStack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AuthorizationType, CfnAuthorizer } from 'aws-cdk-lib/aws-apigateway';
 
-import { env } from '../../../env';
+import { env } from '../../../env/cdk';
 import { CognitoResource } from './cognito';
 import { ApplicationResourcesProps } from '../../interfaces/application';
 

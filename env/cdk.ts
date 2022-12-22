@@ -16,4 +16,5 @@ export const env = cleanEnv(process.env, {
         default: 'dev',
     }),
     REGION: str({}),
+    S3_MAIN_PREFIX: str({}),
 });
