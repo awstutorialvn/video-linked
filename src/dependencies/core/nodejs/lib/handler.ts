@@ -24,7 +24,7 @@ const httpResSerializer = () =>
             },
             {
                 regex: /^application\/json$/,
-                serializer: ({ body }: { body: object }) => JSON.stringify(body),
+                serializer: ({ body }: { body: object | string }) => (isString(body) ? body : JSON.stringify(body)),
             },
             {
                 regex: /^text\/plain$/,
