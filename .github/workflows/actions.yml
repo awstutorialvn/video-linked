@@ -19,5 +19,8 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --force
-        
+
+      - name: Lint Check
+        run: npm run lint
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
