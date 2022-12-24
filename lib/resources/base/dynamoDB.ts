@@ -15,20 +15,19 @@ export class DynamoDBResource extends NestedStack {
         super(scope, id, props);
 
         const stackName = props.configuration.stackName;
-        const billingMode = dynamodb.BillingMode.PROVISIONED;
-        const readCapacity = 5;
-        const writeCapacity = 5;
+        const billingMode = dynamodb.BillingMode.PAY_PER_REQUEST;
+        const readCapacity = 1;
+        const writeCapacity = 1;
         const pointInTimeRecovery = env.isProd ? true : false;
+        const tableClass = dynamodb.TableClass.STANDARD;
         const removalPolicy = env.isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY;
-        const tableClass = env.isProd ? dynamodb.TableClass.STANDARD : dynamodb.TableClass.STANDARD_INFREQUENT_ACCESS;
-
         // replicationRegions: ['us-east-1', 'us-east-2', 'us-west-1'],
         const tables = {
             User: new dynamodb.Table(this, `${stackName}_User`, {
                 partitionKey: { name: 'email', type: dynamodb.AttributeType.STRING },
                 billingMode,
-                readCapacity,
-                writeCapacity,
+                // readCapacity,
+                // writeCapacity,
                 removalPolicy,
                 pointInTimeRecovery,
                 tableClass: tableClass,
