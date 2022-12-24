@@ -16,8 +16,8 @@ export class DynamoDBResource extends NestedStack {
 
         const stackName = props.configuration.stackName;
         const billingMode = dynamodb.BillingMode.PAY_PER_REQUEST;
-        const readCapacity = 1;
-        const writeCapacity = 1;
+        // const readCapacity = 1;
+        // const writeCapacity = 1;
         const pointInTimeRecovery = env.isProd ? true : false;
         const tableClass = dynamodb.TableClass.STANDARD;
         const removalPolicy = env.isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY;
