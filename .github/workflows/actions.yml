@@ -1,17 +1,23 @@
 name: GitHub Actions Linked Video
-run-name: ${{ github.actor }} {{ github.repository }} Actions 🚀
+run-name: ${{ github.actor }} ${{ github.repository }} Actions 🚀
 on: [push]
 jobs:
   Lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16.13.x
           cache: npm
+
       - name: Install Yarn
         run: npm install yarn -g
+
       - name: Install Dependencies
         run: yarn install --force
+        
       - run: echo "🍏 This job's status is ${{ job.status }}."
