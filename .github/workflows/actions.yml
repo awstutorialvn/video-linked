@@ -4,16 +4,15 @@ run-name: ${{ github.actor }} ${{ github.repository }} Actions 🚀
 on: [push]
 jobs:
   BuildTest:
-    uses: awstutorialvn/video-linked/.github/workflows/build-and-test.yml@feature/github-action
+    uses: ./.github/workflows/build-and-test.yml
     with:
       stage: 'dev'
     secrets: inherit
 
-
-  Next:
+  JobStatus:
     name: Next
     needs: [BuildTest]
     runs-on: ubuntu-latest
     steps:
-      - run: job ${{ job.status }}
+      - run: echo job status ${{ job.status }}
     
