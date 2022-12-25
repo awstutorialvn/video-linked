@@ -1,11 +1,15 @@
+import path from 'path';
 import { NestedStack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { NestedResourcesProps } from '../../interfaces/application';
 import { Code, LayerVersion, Runtime } from 'aws-cdk-lib/aws-lambda';
-import path from 'path';
+
+import { NestedResourcesProps } from '../../interfaces/application';
+import corePackage from '../../../src/dependencies/core/nodejs/package.json';
 
 export class DependencyResource extends NestedStack {
     public coreLayer: LayerVersion;
+
+    public coreExternalModules: string[];
 
     public constructor(scope: Construct, id: string, props: NestedResourcesProps) {
         super(scope, id, props);
@@ -37,6 +41,7 @@ export class DependencyResource extends NestedStack {
                 },
             }),
         });
+        this.coreExternalModules = [...Object.keys(corePackage.dependencies), 'aws-sdk'];
 
         // this.s3Bucket = new Bucket(this, bucketName, {
         //     bucketName: bucketName,
