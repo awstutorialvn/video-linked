@@ -24,7 +24,7 @@ export class VideoStack extends NestedStack {
         const apiGateway = appResources.apiGateway;
         const api = apiGateway.api;
         const stackName = props.configuration.stackName;
-
+        const dependency = props.baseResources.dependency;
         // const functionDefaultProps: NodejsFunctionProps  = {
         //     runtime: Runtime.NODEJS_16_X,
         //     environment: props.configuration.environment,
@@ -72,10 +72,10 @@ export class VideoStack extends NestedStack {
             entry: path.join(__dirname, `../../src/api/video/index.ts`),
             bundling: {
                 minify: env.isProduction,
-                externalModules: [],
+                externalModules: [...dependency.coreExternalModules],
             },
             environment: props.configuration.environment,
-            layers: [props.baseResources.dependency.coreLayer],
+            layers: [dependency.coreLayer],
         });
 
         props.baseResources.s3.s3Bucket.grantPut(presignedPutUrlFunction);
