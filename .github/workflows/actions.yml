@@ -6,8 +6,8 @@ jobs:
   Lint:
     name: Run Lint Code
     runs-on: ubuntu-latest
+    uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
     steps:
-      - uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
       - name: Lint Check
         run: yarn run lint
 
