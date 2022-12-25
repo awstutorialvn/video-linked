@@ -9,17 +9,17 @@ jobs:
     name: Run Lint Code
     # needs: [Build]
     uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
-      with:
-        command: yarn run lint
+    with:
+      command: yarn run lint
 
   Test:
     name: Run UniTest
     uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
-      with:
-        command: yarn run test
+    with:
+      command: yarn run test
 
   Synth:
     name: CDK Synth
     uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
-      with:
-        command: yarn run cdk synth
+    with:
+      command: yarn run cdk synth
