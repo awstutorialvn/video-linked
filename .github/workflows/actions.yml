@@ -5,7 +5,7 @@ on: [push]
 jobs:
   BuildTest:
   name: Build & Test
-    uses: awstutorialvn/video-linked/.github/workflows/build-and-test.yml@feature/github-action
+  uses: awstutorialvn/video-linked/.github/workflows/build-and-test.yml@feature/github-action
 
   Next:
     name: Next
