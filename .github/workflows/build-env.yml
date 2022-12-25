@@ -4,8 +4,8 @@ run-name: Build Environments Actions 🚀
 on:
   workflow_call:
     inputs:
-      stage:
-        required: false
+      command:
+        required: true
         type: string
        
 jobs:
@@ -27,4 +27,7 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --force
+      
+      - name: Command
+        run: ${{ inputs.command }}
   

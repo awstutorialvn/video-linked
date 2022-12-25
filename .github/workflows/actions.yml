@@ -3,27 +3,23 @@ run-name: ${{ github.actor }} ${{ github.repository }} Actions 🚀
         
 on: [push]
 jobs:
-  Build:
-    uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
+  # Build:
+  #   uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
   Lint:
     name: Run Lint Code
-    needs: [Build]
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Lint Check
-        run: yarn run lint
+    # needs: [Build]
+    uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
+      with:
+        command: yarn run lint
 
   Test:
     name: Run UniTest
-    runs-on: ubuntu-latest
-    steps:
-      - name: Lint Check
-        run: yarn run test
+    uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
+      with:
+        command: yarn run test
 
   Synth:
     name: CDK Synth
-    runs-on: ubuntu-latest
-    steps:
-      - name: CDK Build
-        run: yarn run cdk synth
+    uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
+      with:
+        command: yarn run cdk synth
