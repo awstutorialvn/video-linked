@@ -4,22 +4,11 @@ run-name: ${{ github.actor }} ${{ github.repository }} Actions 🚀
 on: [push]
 jobs:
   Lint:
+    name: Run Lint Code
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.17.0
-          cache: npm
-
-      - name: Install Yarn
-        run: npm install yarn -g
-
-      - name: Install Dependencies
-        run: yarn install --force
+      - name: Env Setup
+        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml
 
       - name: Lint Check
         run: yarn run lint
@@ -27,40 +16,17 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.17.0
-          cache: npm
-
-      - name: Install Yarn
-        run: npm install yarn -g
-
-      - name: Install Dependencies
-        run: yarn install --force
+      - name: Env Setup
+        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml
 
       - name: Lint Check
         run: yarn run test
+
   Build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.17.0
-          cache: npm
-
-      - name: Install Yarn
-        run: npm install yarn -g
-
-      - name: Install Dependencies
-        run: yarn install --force
+      - name: Env Setup
+        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml
 
       - name: CDK Build
         run: yarn run cdk synth
