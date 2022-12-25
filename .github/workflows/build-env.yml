@@ -1,6 +1,13 @@
 name: Build Environments
 run-name: Build Environments Actions 🚀
-        
+
+on:
+  workflow_call:
+    inputs:
+      stage:
+        required: false
+        type: string
+       
 jobs:
   Environments:
     name: Build Node environment and Dependencies
