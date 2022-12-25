@@ -5,28 +5,24 @@ on: [push]
 jobs:
   Lint:
     name: Run Lint Code
+    uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
     runs-on: ubuntu-latest
     steps:
-      - name: Env Setup
-        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
-
       - name: Lint Check
         run: yarn run lint
 
   Test:
+    name: Run UniTest
     runs-on: ubuntu-latest
+    uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
     steps:
-      - name: Env Setup
-        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
-
       - name: Lint Check
         run: yarn run test
 
   Build:
+    name: CDK Synth
+    uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
     runs-on: ubuntu-latest
     steps:
-      - name: Env Setup
-        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
-
       - name: CDK Build
         run: yarn run cdk synth
