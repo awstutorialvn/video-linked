@@ -4,13 +4,13 @@ run-name: Build Environments Actions 🚀
 on:
   workflow_call:
     inputs:
-      command:
-        required: true
+      stage:
+        required: option
         type: string
        
 jobs:
-  Environments:
-    name: Build Node environment and Dependencies
+  Build&Test:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.17.0
-          cache: npm
 
       - name: Install Yarn
         run: npm install yarn -g
@@ -28,6 +27,12 @@ jobs:
       - name: Install Dependencies
         run: yarn install --force
       
-      - name: Command
-        run: ${{ inputs.command }}
+      - name: Lint Code
+        run: yarn run lint
+
+      - name: UniTest
+        run: yarn run test
+      
+      - name: CDK synth
+        run: yarn run cdk synth
   
