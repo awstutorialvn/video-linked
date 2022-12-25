@@ -1,13 +1,27 @@
 name: GitHub Actions Linked Video
 run-name: ${{ github.actor }} ${{ github.repository }} Actions 🚀
         
+env:
+  STAGE_NAME: ${{ inputs.stage }}
+  STACK_NAME: ${{ secrets.STACK_NAME }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  CDK_DEFAULT_ACCOUNT: ${{ secrets.CDK_DEFAULT_ACCOUNT }}
+  CDK_DEFAULT_REGION: ${{ secrets.CDK_DEFAULT_REGION }}
+  REGION: ${{ secrets.REGION }}
+  S3_MAIN_PREFIX: ${{ secrets.S3_MAIN_PREFIX }}
+
 on: [push]
 jobs:
+  CheckoutEnv:
+    steps:
+      - run: echo $STAGE_NAME
+      
   BuildTest:
     name: Build And Test
     uses: awstutorialvn/video-linked/.github/workflows/build-and-test.yml@feature/github-action
-      with:
-        stage: 'dev'
+    with:
+      stage: 'dev'
 
 
   Next:
