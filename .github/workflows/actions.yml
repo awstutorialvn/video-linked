@@ -3,7 +3,6 @@ run-name: ${{ github.actor }} ${{ github.repository }} Actions 🚀
         
 on: [push]
 jobs:
-  name: My first job
   Lint:
     runs-on: ubuntu-latest
     steps:
