@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} ${{ github.repository }} Actions 🚀
 on: [push]
 jobs:
   BuildTest:
-  name: Build & Test
+  name: Build And Test
   uses: awstutorialvn/video-linked/.github/workflows/build-and-test.yml@feature/github-action
 
   Next:
