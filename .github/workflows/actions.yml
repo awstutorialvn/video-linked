@@ -6,6 +6,9 @@ jobs:
   BuildTest:
     name: Build And Test
     uses: awstutorialvn/video-linked/.github/workflows/build-and-test.yml@feature/github-action
+      with:
+        stage: 'dev'
+
 
   Next:
     name: Next

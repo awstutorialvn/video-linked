@@ -9,7 +9,7 @@ on:
         type: string
 
 env:
-  TEST: 'testing'
+  STAGE_NAME: ${{ inputs.stage }}
   STACK_NAME: ${{ secrets.STACK_NAME }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -21,6 +21,7 @@ env:
 jobs:
   BuildTest:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.stage }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -43,7 +44,7 @@ jobs:
       #   run: yarn run test
       
       - name: CDK test
-        run: echo $TEST
+        run: echo $STAGE_NAME
 
       - name: CDK synth
         run: echo $AWS_ACCESS_KEY_ID
