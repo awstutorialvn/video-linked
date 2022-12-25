@@ -7,6 +7,10 @@ import { HealthCheck } from './functions/health-check';
 import { env } from '../env/cdk';
 import { VideoStack } from './functions/video';
 
+import { Logger } from '@aws-lambda-powertools/logger';
+
+const logger = new Logger();
+
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class VideoLinkedStack extends cdk.Stack {
@@ -24,6 +28,8 @@ export class VideoLinkedStack extends cdk.Stack {
                 S3_MAIN_PREFIX: env.S3_MAIN_PREFIX,
             },
         };
+
+        logger.info(JSON.stringify(configuration));
 
         // init base resource
         const baseResources = new BaseResources(this, 'baseResources', { configuration });
