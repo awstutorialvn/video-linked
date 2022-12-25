@@ -7,6 +7,14 @@ on:
       stage:
         required: false
         type: string
+
+env:
+  STACK_NAME: ${{ secrets.STACK_NAME }}
+  CDK_DEFAULT_ACCOUNT: ${{ secrets.CDK_DEFAULT_ACCOUNT }}
+  CDK_DEFAULT_REGION: ${{ secrets.CDK_DEFAULT_REGION }}
+  STAGE_NAME: ${{ secrets.STAGE_NAME }}
+  REGION: ${{ secrets.REGION }}
+  S3_MAIN_PREFIX: ${{ secrets.S3_MAIN_PREFIX }}
        
 jobs:
   BuildTest:
