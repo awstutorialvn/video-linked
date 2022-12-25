@@ -14,9 +14,10 @@ env:
 on: [push]
 jobs:
   CheckoutEnv:
+    runs-on: ubuntu-latest
     steps:
       - run: echo $STAGE_NAME
-      
+
   BuildTest:
     name: Build And Test
     uses: awstutorialvn/video-linked/.github/workflows/build-and-test.yml@feature/github-action
