@@ -20,6 +20,7 @@ env:
        
 jobs:
   BuildTest:
+    name: Build And Test
     runs-on: ubuntu-latest
     environment: ${{ inputs.stage }}
     steps:
@@ -36,17 +37,7 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --force
-      
-      # - name: Lint Code
-      #   run: yarn run lint
-
-      # - name: UniTest
-      #   run: yarn run test
-      
-      - name: CDK test
-        run: echo $STAGE_NAME
 
       - name: CDK synth
-        run: echo $AWS_ACCESS_KEY_ID
-        # run: yarn run cdk synth
+        run: yarn run cdk synth
   
