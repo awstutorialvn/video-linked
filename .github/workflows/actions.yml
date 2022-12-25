@@ -9,6 +9,7 @@ jobs:
   Next:
     name: Next
     needs: [Build]
+    runs-on: ubuntu-latest
     steps:
       - run: job ${{ job.status }}
     
