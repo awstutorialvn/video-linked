@@ -9,7 +9,7 @@ jobs:
 
   Next:
     name: Next
-    needs: [Build]
+    needs: [BuildTest]
     runs-on: ubuntu-latest
     steps:
       - run: job ${{ job.status }}
