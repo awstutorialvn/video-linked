@@ -39,11 +39,30 @@ jobs:
           node-version: 16.13.x
           cache: npm
 
-      - name: Install Yarn
-        run: npm install yarn -g
+      - name: Cache dependencies
+        id: cache-deps
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ inputs.cache-version }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install Dependencies
+        # install deps only if lockfile has changed
+        if: steps.cache-deps.outputs.cache-hit != 'true'
         run: yarn install --force
+        shell: bash
 
       - name: Lint Check
         run: yarn run lint
