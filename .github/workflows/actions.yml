@@ -63,4 +63,4 @@ jobs:
         run: yarn install --force
 
       - name: CDK Build
-        run: cdk synth
+        run: yarn run cdk synth
