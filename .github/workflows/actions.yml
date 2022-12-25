@@ -1,26 +1,55 @@
 name: GitHub Actions Linked Video
 run-name: ${{ github.actor }} ${{ github.repository }} Actions 🚀
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: ${{ inputs.fetch-depth }}
+        token: ${{ inputs.token }}
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version:  16.17.0
+
+    - name: Cache dependencies
+      id: cache-deps
+      uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ inputs.cache-version }}-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install Dependencies
+      # install deps only if lockfile has changed
+      if: steps.cache-deps.outputs.cache-hit != 'true'
+      run: yarn install --force
+      shell: bash
+        
 on: [push]
 jobs:
   Lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      # - name: Checkout
+      #   uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.13.x
-          cache: npm
+      # - name: Setup Node
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16.13.x
+      #     cache: npm
 
-      - name: Install Yarn
-        run: npm install yarn -g
+      # - name: Install Yarn
+      #   run: npm install yarn -g
 
-      - name: Install Dependencies
-        run: yarn install --force
+      # - name: Install Dependencies
+      #   run: yarn install --force
 
       - name: Lint Check
-        run: npm run lint
+        run: yarn run lint
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  
