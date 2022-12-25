@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Env Setup
-        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml
+        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
 
       - name: Lint Check
         run: yarn run lint
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Env Setup
-        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml
+        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
 
       - name: Lint Check
         run: yarn run test
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Env Setup
-        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml
+        uses: awstutorialvn/video-linked/.github/workflows/build-env.yml@feature/github-action
 
       - name: CDK Build
         run: yarn run cdk synth
